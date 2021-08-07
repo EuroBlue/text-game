@@ -16,7 +16,7 @@ public class Player extends MainClass{
         }
     }
 
-    public static void InHand(int b)
+    public static void InHand(int b,int c)
     {
         if (MainClass.gamer.inventar[b].potion)
         {
@@ -29,8 +29,8 @@ public class Player extends MainClass{
         }
         else
         {
-        Item zl=MainClass.gamer.inventar[0];
-        MainClass.gamer.inventar[0]=MainClass.gamer.inventar[b];
+        Item zl=MainClass.gamer.inventar[c];
+        MainClass.gamer.inventar[c]=MainClass.gamer.inventar[b];
         MainClass.gamer.inventar[b]=zl;
         }
         
@@ -70,26 +70,46 @@ public class Player extends MainClass{
             }
             else
             {
-                System.out.println("Your inventory is full.");  
+                System.out.println("\nYour inventory is full.");  
             }
         }
     }
     public static void DamagePlayer(float dam)
     {
         Enemy e=Enemy.cur_enemy[MainClass.welle][MainClass.enem];
-        if (MainClass.gamer.inventar[0].shield)
+        if (MainClass.gamer.inventar[0].shield||MainClass.gamer.inventar[1].shield)
         {
-            float block=generateRandomInRange(MainClass.gamer.inventar[0].block_min, gamer.inventar[0].block_max);
-            gamer.health=gamer.health-(dam-block);
-            System.out.println(e.name+" attacked you with "+dam+" damage, but your "+gamer.inventar[0].name+" blocked "+block+" of it.");
-            if(gamer.inventar[0].shield_hp>0)
+            if(MainClass.gamer.inventar[0].shield)
             {
-                System.out.println("Your shield have "+gamer.inventar[0].shield_hp+" left.");
+                float block=generateRandomInRange(MainClass.gamer.inventar[0].block_min, gamer.inventar[0].block_max);
+                gamer.health=gamer.health-(dam-block);
+                System.out.println(e.name+" attacked you with "+dam+" damage, but your "+gamer.inventar[0].name+" blocked "+block+" of it.");
+                MainClass.gamer.inventar[0].shield_hp=MainClass.gamer.inventar[0].shield_hp-block;
+                if(gamer.inventar[0].shield_hp>0)
+                {
+                    System.out.println("Your shield have "+gamer.inventar[0].shield_hp+" left.");
+                }
+                else
+                {
+                    System.out.println("Your shield was destroyed.");
+                    MainClass.gamer.inventar[0]=Item.Empty;
+                }
             }
             else
             {
-                System.out.println("Your shield was destroyed.");
-                MainClass.gamer.inventar[0]=Item.Empty;
+                float block=generateRandomInRange(MainClass.gamer.inventar[1].block_min, gamer.inventar[1].block_max);
+                gamer.health=gamer.health-(dam-block);
+                System.out.println(e.name+" attacked you with "+dam+" damage, but your "+gamer.inventar[1].name+" blocked "+block+" of it.");
+                MainClass.gamer.inventar[1].shield_hp=MainClass.gamer.inventar[1].shield_hp-block;
+                if(gamer.inventar[1].shield_hp>0)
+                {
+                    System.out.println("Your shield have "+gamer.inventar[1].shield_hp+" left.");
+                }
+                else
+                {
+                    System.out.println("Your shield was destroyed.");
+                    MainClass.gamer.inventar[1]=Item.Empty;
+                }
             }
 
         }
@@ -110,8 +130,8 @@ public class Player extends MainClass{
     }
     public static void PlayerAttack()
     {
-        float att=generateRandomInRange(MainClass.gamer.inventar[0].damage, MainClass.gamer.inventar[0].critical);
-        System.out.println("You dealt "+att+" damage to "+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
+        float att=generateRandomInRange(MainClass.gamer.inventar[0].damage, MainClass.gamer.inventar[0].critical)+generateRandomInRange(MainClass.gamer.inventar[1].damage, MainClass.gamer.inventar[1].critical);
+        System.out.println("\nYou dealt "+att+" damage to "+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
         Enemy.cur_enemy[MainClass.welle][MainClass.enem].EnemyDamage(att);
     }
 }

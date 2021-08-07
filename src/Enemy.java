@@ -65,13 +65,13 @@ public class Enemy extends MainClass{
         this.health=this.health-dam;
         if (this.health <= 0)
         {
-            System.out.println(gamer.nickname+" has killed an "+this.name);
+            System.out.println("\n"+gamer.nickname+" has killed an "+this.name);
 
             if (MainClass.enem==9)
             {
                 if (MainClass.welle==2)
                 {
-                    System.out.println("You are the victorious");
+                    System.out.println("\nYou are the victorious");
                 }
             }
             else

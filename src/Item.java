@@ -59,7 +59,7 @@ public class Item extends MainClass{
         {
             if(genRanInt(1, 100)<=item.drate)
             {
-                System.out.println(Enemy.cur_enemy[welle][enem].name+" dropped after his death a "+item.name+".");
+                System.out.println("\n"+Enemy.cur_enemy[welle][enem].name+" dropped after his death a "+item.name+".");
                 for (int i = 0; i < ground.length; i++)
                 {
                     if(ground[i].drate==0)

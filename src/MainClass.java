@@ -20,11 +20,11 @@ public class MainClass {
         {
             if (welle>0)
             {
-                System.out.println("Greetings adventurer you survived the "+welle_names[welle]+" wave.");
+                System.out.println("Greetings adventurer you survived the "+welle_names[welle]+" wave.\n");
             }
             else
             {
-                System.out.println("Welcome to the game.");
+                System.out.println("\nWelcome to the game.");
             }
             for (enem = 0; enem < 9; enem++) 
             {
@@ -33,7 +33,7 @@ public class MainClass {
                     System.out.println("Kill the enemys to get to a higher wave.\nThe enemys spawn in diffrent waves but the order is not fixed so don't expect it to be too easy.\nAfter you killed all mobs of one type the next wave is going to start with other types of enemys.\nGive your best to survive all waves and become the king of the creatures.");
                 }
                 youCan();
-                System.out.println("You are now competing against "+Enemy.cur_enemy[welle][enem].name);
+                System.out.println("\nYou are now competing against "+Enemy.cur_enemy[welle][enem].name);
                 while (Enemy.cur_enemy[welle][enem].health>0&&gamer.health>0) 
                 {
                     youCan_att();
@@ -59,7 +59,7 @@ public class MainClass {
                 }
                 else
                 {
-                    System.out.println("Congratulations! you survived this type of creature. Let's see how you can handle the next creatures. Good luck.");
+                    System.out.println("\nCongratulations! you killed this type of creature.\nLet's see how you can handle the next creatures. Good luck.");
                     if(MainClass.gamer.health<=0)
                     {
                         for (int i = 0; i < ground.length; i++) 
@@ -75,12 +75,12 @@ public class MainClass {
 
     public static String PlayerName()
     {
-        System.out.println("Hey ... you have no name?\nPlease enter a Username below.");
+        System.out.println("\nHey ... you have no name?\nPlease enter a Username below.");
         String input=scan.nextLine();
 
         if (input == null||input =="")
         {
-            System.out.println("Hey this name is not possible!\nPlease chose another name!");
+            System.out.println("\nHey this name is not possible!\nPlease chose another name!");
             return PlayerName();
         }
         else
@@ -95,27 +95,38 @@ public class MainClass {
     }
     public static void youCan()
     {
-        System.out.println("You can now\n1. View available Items and enter the inventory\n2. View Player Stats\n3. Move on to the enemy");
+        System.out.println("\nYou can now\n1. View available Items and enter the inventory\n2. View Player Stats\n3. Move on to the enemy");
         int input=Integer.parseInt(input());
-        System.out.println(input);
         if(input ==1)
         {
             int c=1;
-            System.out.println("In your Inventory are:");
+            System.out.println("\nIn your Inventory is: ");
             for (Item item : gamer.inventar) 
             {
                 if(c==1&&item.name=="Empty")
                 {
-                    System.out.println("1. Fists");
+                    System.out.println("Right Hand. Fists");
                 }
                 else
                 {
-                    System.out.println(c+". "+item.name);
+                    if(c==1)
+                    {
+                        System.out.print("Right Hand");
+                    }
+                    else if(c==2)
+                    {
+                        System.out.print("Left Hand");
+                    }
+                    else
+                    {
+                        System.out.print(c);
+                    }
+                    System.out.println(". "+item.name);
                 }
                 c++;
             }
             c=1;
-            System.out.println("On the ground are:");
+            System.out.println("\nOn the ground is: ");
             for (Item item : ground) 
             {
                 if(item!=Item.Empty)
@@ -132,10 +143,10 @@ public class MainClass {
         }
         else if(input ==2)
         {
-            System.out.println(String.format("Your minumum damage is %f",gamer.inventar[0].damage));
-            System.out.println(String.format("Your maximum damage is %f",gamer.inventar[0].critical));
-            System.out.println(String.format("Your minumum damage reduction is %f",gamer.inventar[0].block_min));
-            System.out.println(String.format("Your maximum damage reduction is %f",gamer.inventar[0].block_max));
+            System.out.println(String.format("\nYour minumum damage is %f",gamer.inventar[0].damage+gamer.inventar[1].damage));
+            System.out.println(String.format("Your maximum damage is %f",gamer.inventar[0].critical+gamer.inventar[1].critical));
+            System.out.println(String.format("Your minumum damage reduction is %f",gamer.inventar[0].block_min+gamer.inventar[1].block_min));
+            System.out.println(String.format("Your maximum damage reduction is %f",gamer.inventar[0].block_max+gamer.inventar[1].block_max));
             System.out.println(String.format("Your Shield HP is %f",gamer.inventar[0].shield_hp));
             System.out.println(String.format("Your Health is %f",gamer.health));
         }
@@ -150,21 +161,33 @@ public class MainClass {
     }
     public static void youCan_att()
     {
-        System.out.println("You can now\n1. View available Items and enter the inventory\n2. View Player Stats\n3. Attack the enemy");
+        System.out.println("\nYou can now\n1. View available Items and enter the inventory\n2. View Player Stats\n3. Attack the enemy");
         int input=Integer.parseInt(input());
         if(input ==1)
         {
             int c=1;
-            System.out.print("In your Inventory are:");
+            System.out.println("In your Inventory are:");
             for (Item item : gamer.inventar) 
             {
                 if(c==1&&item.name=="Empty")
                 {
-                    System.out.print("1. Fists");
+                    System.out.println("Right Hand. Fists");
                 }
                 else
                 {
-                    System.out.print(c+". "+item.name);
+                    if(c==1)
+                    {
+                        System.out.print("Right Hand");
+                    }
+                    else if(c==2)
+                    {
+                        System.out.print("Left Hand");
+                    }
+                    else
+                    {
+                        System.out.print(c);
+                    }
+                    System.out.println(". "+item.name);
                 }
                 c++;
             }
@@ -186,10 +209,10 @@ public class MainClass {
         }
         else if(input ==2)
         {
-            System.out.println(String.format("Your minumum damage is %f",gamer.inventar[0].damage));
-            System.out.println(String.format("Your maximum damage is %f",gamer.inventar[0].critical));
-            System.out.println(String.format("Your minumum damage reduction is %f",gamer.inventar[0].block_min));
-            System.out.println(String.format("Your maximum damage reduction is %f",gamer.inventar[0].block_max));
+            System.out.println(String.format("\nYour minumum damage is %f",gamer.inventar[0].damage+gamer.inventar[1].damage));
+            System.out.println(String.format("Your maximum damage is %f",gamer.inventar[0].critical+gamer.inventar[1].critical));
+            System.out.println(String.format("Your minumum damage reduction is %f",gamer.inventar[0].block_min+gamer.inventar[1].block_min));
+            System.out.println(String.format("Your maximum damage reduction is %f",gamer.inventar[0].block_max+gamer.inventar[1].block_max));
             System.out.println(String.format("Your Shield HP is %f",gamer.inventar[0].shield_hp));
             System.out.println(String.format("Your Health is %f",gamer.health));
             youCan();
@@ -205,7 +228,7 @@ public class MainClass {
     }
     public static void invActions()
     {
-        System.out.println("You can now\n0. Back\n1. Take an item from the ground\n2. Drop an item on the ground\n3. Take item to the hand or use it");
+        System.out.println("\nYou can now\n0. Back\n1. Take an item from the ground\n2. Drop an item on the ground\n3. Take item to the hand or use it");
         int input=Integer.parseInt(input());
         if(input ==0)
         {
@@ -228,8 +251,15 @@ public class MainClass {
         else if(input ==3)
         {
             System.out.println("What item do you want to take in the hand or use?");
-            input=Integer.parseInt(input());
-            Player.InHand((input)-1);
+            input=Integer.parseInt(input())-1;
+            int iinput=-1;
+            if(!gamer.inventar[input].potion)
+            {
+                System.out.println("1. Right Hand\n2. Left Hand");
+                iinput=Integer.parseInt(input());
+            }
+            
+            Player.InHand((input), iinput-1);
             invActions();
         }
         
@@ -252,6 +282,4 @@ public class MainClass {
 		Collections.shuffle(intList);
 		return intList.toArray(ea);
 	}
-
-
 }
