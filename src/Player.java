@@ -1,6 +1,6 @@
 public class Player extends MainClass{
     
-    private float health;
+    public float health;
     public String nickname;
 
     public Item[] inventar;
@@ -68,6 +68,15 @@ public class Player extends MainClass{
             float block=generateRandomInRange(MainClass.gamer.inventar[0].block_min, gamer.inventar[0].block_max);
             gamer.health=gamer.health-(dam-block);
             System.out.println(e.name+" attacked you with "+dam+" damage, but your "+gamer.inventar[0].name+" blocked "+block+" of it.");
+            if(gamer.inventar[0].shield_hp>0)
+            {
+                System.out.println("Your shield have "+gamer.inventar[0].shield_hp+" left.");
+            }
+            else
+            {
+                System.out.println("Your shield was destroyed.");
+                MainClass.gamer.inventar[0]=Item.Empty;
+            }
 
         }
         else
@@ -78,6 +87,7 @@ public class Player extends MainClass{
         if(gamer.health<=0)
         {
             System.out.println("You have been killed by "+ e.name);
+            System.out.println("You died");
         }
         else
         {
@@ -87,7 +97,7 @@ public class Player extends MainClass{
     public static void PlayerAttack()
     {
         float att=generateRandomInRange(MainClass.gamer.inventar[0].damage, MainClass.gamer.inventar[0].critical);
-        System.out.println("You taked away "+att+" health from"+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
+        System.out.println("You dealt "+att+" damage to"+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
         Enemy.cur_enemy[MainClass.welle][MainClass.enem].EnemyDamage(att);
     }
 }

@@ -79,7 +79,7 @@ public class Enemy extends MainClass{
             System.out.println(this.name+" has "+this.health+" left.");
         }
     }
-    public void EnemyAttack()
+    public static void EnemyAttack()
     {
         float att=generateRandomInRange(Enemy.cur_enemy[MainClass.welle][MainClass.enem].damage,Enemy.cur_enemy[MainClass.welle][MainClass.enem].critdamage);
         Player.DamagePlayer(att);
