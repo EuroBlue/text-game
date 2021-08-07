@@ -18,9 +18,21 @@ public class Player extends MainClass{
 
     public static void InHand(int b)
     {
+        if (MainClass.gamer.inventar[b].potion)
+        {
+            float a=MainClass.generateRandomInRange(MainClass.gamer.inventar[b].damage,MainClass.gamer.inventar[b].critical);
+            MainClass.gamer.health=MainClass.gamer.health+a;
+            System.out.println("You have consumed a "+MainClass.gamer.inventar[b].name);
+            System.out.println(MainClass.gamer.inventar[b].name+" gave you "+a+" HP");
+            System.out.println("You have now "+MainClass.gamer.health+" HP");
+            MainClass.gamer.inventar[b]=Item.Empty;
+        }
+        else
+        {
         Item zl=MainClass.gamer.inventar[0];
         MainClass.gamer.inventar[0]=MainClass.gamer.inventar[b];
         MainClass.gamer.inventar[b]=zl;
+        }
         
     }
 
@@ -44,13 +56,15 @@ public class Player extends MainClass{
         }
         else
         {
-            if(MainClass.gamer.inventar[0]!=Item.Empty||MainClass.gamer.inventar[1]!=Item.Empty||MainClass.gamer.inventar[2]!=Item.Empty||MainClass.gamer.inventar[3]!=Item.Empty||MainClass.gamer.inventar[4]!=Item.Empty)
+            if(MainClass.gamer.inventar[0].drate==0||MainClass.gamer.inventar[1].drate==0||MainClass.gamer.inventar[2].drate==0||MainClass.gamer.inventar[3].drate==0||MainClass.gamer.inventar[4].drate==0)
             {
-                for (Item i : MainClass.ground) 
+                for (int i = 0; i < MainClass.gamer.inventar.length; i++) 
                 {
-                    if(i==Item.Empty)
+                    if(MainClass.gamer.inventar[i]==Item.Empty)
                     {
-                        i=MainClass.ground[c];
+                        MainClass.gamer.inventar[i]=MainClass.ground[c];
+                        MainClass.ground[c]=Item.Empty;
+                        break;
                     }
                 }
             }
@@ -91,13 +105,13 @@ public class Player extends MainClass{
         }
         else
         {
-            System.out.println("You have now only "+gamer.health+"health left.");
+            System.out.println("You have now only "+gamer.health+" health left.");
         }
     }
     public static void PlayerAttack()
     {
         float att=generateRandomInRange(MainClass.gamer.inventar[0].damage, MainClass.gamer.inventar[0].critical);
-        System.out.println("You dealt "+att+" damage to"+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
+        System.out.println("You dealt "+att+" damage to "+Enemy.cur_enemy[MainClass.welle][MainClass.enem].name);
         Enemy.cur_enemy[MainClass.welle][MainClass.enem].EnemyDamage(att);
     }
 }
